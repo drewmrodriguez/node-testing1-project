@@ -8,6 +8,9 @@
  */
 function trimProperties(obj) {
   // ✨ implement
+  const newObj = {...obj}
+  Object.keys(newObj).map(o => newObj[o] = newObj[o].trim())
+  return newObj
 }
 
 /**
@@ -20,6 +23,8 @@ function trimProperties(obj) {
  */
 function trimPropertiesMutation(obj) {
   // ✨ implement
+  Object.keys(obj).forEach(o => {obj[o] = obj[o].trim()})
+  return obj
 }
 
 /**
@@ -32,6 +37,13 @@ function trimPropertiesMutation(obj) {
  */
 function findLargestInteger(integers) {
   // ✨ implement
+  var highest = integers[0]
+  Object.keys(integers).map(int => {
+    if (integers[int].integer > highest.integer) {
+      highest = integers[int]
+    }
+  })
+  return highest.integer
 }
 
 class Counter {
@@ -41,6 +53,7 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.number = initialNumber + 1
   }
 
   /**
@@ -57,6 +70,12 @@ class Counter {
    */
   countDown() {
     // ✨ implement
+    if (this.number > 0) {
+      this.number -= 1
+    } else {
+      this.number
+    }
+    return this.number
   }
 }
 
@@ -66,6 +85,8 @@ class Seasons {
    */
   constructor() {
     // ✨ initialize whatever properties are needed
+    this.seasons = ['summer', 'fall', 'winter', 'spring']
+    this.currentSeason = 'spring'
   }
 
   /**
@@ -82,6 +103,13 @@ class Seasons {
    */
   next() {
     // ✨ implement
+    let nextSeason = this.seasons.findIndex(foo => foo === this.currentSeason);
+    
+    this.currentSeason = this.seasons[nextSeason + 1]
+    if(!this.currentSeason) {
+      this.currentSeason = 'summer'
+    }
+    return this.currentSeason
   }
 }
 
@@ -96,6 +124,9 @@ class Car {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
+    this.tankSize = tankSize
+    this.mpg = mpg
+    this.name = name
   }
 
   /**
@@ -113,6 +144,16 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    if (((this.tank*this.mpg) - distance) >= 0) {
+      this.odometer = this.odometer + distance;
+      this.tank = ((this.tank*this.mpg) - distance)/this.mpg;
+      return this.odometer
+    } else {
+      distance = distance - (this.tank*this.mpg);
+      this.odometer = this.odometer + (this.tank*this.mpg);
+      this.tank = 0;
+      return (`ran out of after ${this.odometer} miles`);
+    }
   }
 
   /**
@@ -128,6 +169,14 @@ class Car {
    */
   refuel(gallons) {
     // ✨ implement
+    if(this.tank === this.tankSize) {
+      return this.tank
+    } else if ((this.tankSize - this.tank) < gallons) {
+      this.tank = this.tankSize
+    } else {
+      this.tank += this.tank + gallons
+    }
+    return this.tank
   }
 }
 
@@ -146,6 +195,14 @@ class Car {
  */
 function isEvenNumberAsync(number) {
   // ✨ implement
+  if (!number || typeof number !== "number") {
+    throw new Error(`number must be a number`)
+  }
+  if(number%2 === 0) {
+    return true
+  } else {
+    return false
+  }
 }
 
 module.exports = {
